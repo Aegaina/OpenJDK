@@ -1219,9 +1219,15 @@ public class HttpURLConnection extends java.net.HttpURLConnection {
                                + " if doOutput=false - call setDoOutput(true)");
             }
 
-            if (method.equals("GET")) {
+            /*
+             * According to section 4.3.1 of RFC7231,
+             * "A payload within a GET request message has no defined semantics",
+             * but is not forbidden.
+             */
+            /*if (method.equals("GET")) {
                 method = "POST"; // Backward compatibility
-            }
+            }*/
+
             if ("TRACE".equals(method) && "http".equals(url.getProtocol())) {
                 throw new ProtocolException("HTTP method TRACE" +
                                             " doesn't support output");
